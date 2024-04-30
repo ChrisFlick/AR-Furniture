@@ -14,6 +14,8 @@ namespace UnityEngine.XR.ARFoundation.Samples
     [RequireComponent(typeof(ARRaycastManager))]
     public class PlaceOnPlane : PressInputBase
     {
+        public static PlaceOnPlane Instance { get; private set; }
+
         [SerializeField]
         [Tooltip("Instantiates this prefab on a plane at the touch location.")]
         GameObject m_PlacedPrefab;
@@ -37,6 +39,19 @@ namespace UnityEngine.XR.ARFoundation.Samples
         protected override void Awake()
         {
             base.Awake();
+
+            if (Instance != null)
+            {
+                Debug.LogError(
+                    "There's more than one instance of PlaceOnPlane " + transform + "-" + Instance
+                );
+                Destroy(gameObject);
+
+                return;
+            }
+            Instance = this;
+
+
             m_RaycastManager = GetComponent<ARRaycastManager>();
         }
 
