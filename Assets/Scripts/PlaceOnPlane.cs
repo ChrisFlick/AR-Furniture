@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.ARSubsystems;
 
@@ -57,6 +58,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
 
             if (Pointer.current == null || m_Pressed == false)
                 return;
